@@ -1,0 +1,31 @@
+<div class="table-responsive">
+    <table class="table table-curved table-striped">
+        <thead>
+            <tr>
+                <th><?php $this->_("Digitaloceanmodule.event");?></th>
+                <th><?php $this->_("Digitaloceanmodule.initiated");?></th>
+                <th><?php $this->_("Digitaloceanmodule.executiontime");?></th>
+            </tr>
+        </thead>
+        <tbody>
+     <?php 
+     if(count($actions) > 0 ) {
+     foreach ($actions as $key => $value) {
+    
+ ?>
+            <tr>
+                <td><?php $this->Html->_($actions[$key]->type);?></td>
+                <td><?php echo date("d M, Y - h:i:sa", strtotime($actions[$key]->started_at));?></td>
+                <td><?php $this->Html->_($actions[$key]->status);?></td>
+            </tr>
+				<?php
+     } } else {
+?>
+            <tr>
+                <td colspan="4" align="center"><?php $this->_("Digitaloceanmodule.no_results");?></td>
+            </tr>
+            <?php
+     }			?>
+        </tbody>
+    </table>
+</div>
