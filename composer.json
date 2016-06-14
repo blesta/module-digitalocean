@@ -9,4 +9,7 @@
       "require": {
         "toin0u/digitalocean-v2": "~2.0"
     }
+    "require": {
+        "guzzle/guzzle": "~3.7",
+    }
 }
