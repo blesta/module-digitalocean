@@ -1,0 +1,9 @@
+{
+    "name": "blesta/digitaloceanmodule",
+    "description": "DigitalOcean",
+    "license": "proprietary",
+    "type": "blesta-module",
+    "require": {
+        "blesta/composer-installer": "~1.0"
+    }
+}
