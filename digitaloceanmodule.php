@@ -222,8 +222,7 @@ class Digitaloceanmodule extends Module {
             }
         }
         return $array;
-    }
-	
+    }	
 
     public function getRestoreImagesDropdown($module_row, $droplet_id) {
         $api = $this->getApi($module_row->meta->apiKey);
