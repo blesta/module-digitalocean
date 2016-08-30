@@ -56,7 +56,6 @@ class DigitaloceanApi {
         curl_setopt($ch, CURLOPT_URL, $action);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        //curl_setopt($ch, CURLOPT_USERPWD, $this->apiKey . ':' . "");
         $result = curl_exec($ch);
         curl_close($ch);
 
@@ -77,7 +76,6 @@ class DigitaloceanApi {
         ));
         curl_setopt($ch, CURLOPT_POST, count($result_p));
         curl_setopt($ch, CURLOPT_POSTFIELDS, $result_p);
-       //curl_setopt($ch, CURLOPT_USERPWD, $this->apiKey . ':' . "");
 
         $result = curl_exec($ch);
         curl_close($ch);
@@ -96,7 +94,6 @@ class DigitaloceanApi {
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        //curl_setopt($ch, CURLOPT_USERPWD, $this->apiKey . ':' . "");
         $result = curl_exec($ch);
         curl_close($ch);
 
@@ -116,7 +113,6 @@ class DigitaloceanApi {
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $put_data);
-        //curl_setopt($ch, CURLOPT_USERPWD, $this->apiKey . ':' . "");
         $result = curl_exec($ch);
         curl_close($ch);
 
