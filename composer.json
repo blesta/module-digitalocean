@@ -6,4 +6,11 @@
     "require": {
         "blesta/composer-installer": "~1.0"
     }
+    "authors": [
+        {
+            "name": "CubeData",
+            "email": "admin@cubedata.net",
+            "homepage": "https://cubedata.net",
+            "role": "Developer"
+        },
 }
