@@ -3,7 +3,7 @@
 class Digitaloceanmodule extends Module {
 
     private static $version = "2.2";
-    private static $authors = array(array('name' => "ModulesBakery.com.", 'url' => "http://www.modulesbakery.com"));
+    private static $authors = array(array('name' => "ModulesBakery.com.", 'url' => "http://www.modulesbakery.com"),array('name' => "CubeData", 'url' => "https://cubedata.net"));
 
     public function __construct() {
         Loader::loadComponents($this, array("Input"));
@@ -223,6 +223,7 @@ class Digitaloceanmodule extends Module {
         }
         return $array;
     }
+	
 
     public function getRestoreImagesDropdown($module_row, $droplet_id) {
         $api = $this->getApi($module_row->meta->apiKey);
@@ -331,6 +332,30 @@ class Digitaloceanmodule extends Module {
         return $fields;
     }
 
+	public function getallImagesDropdown($package) {
+        $row = $this->getModuleRow($package->module_row);
+        $api = $this->getApi($row->meta->apiKey);
+        $result = $api->getlongGetResults("images");
+        $dp = array();
+		foreach ($result->images as $key => $value)
+		{
+		$dp[$result->images[$key]->slug] = $result->images[$key]->slug;
+		}
+		return $dp;
+    }
+	
+	public function getAllRegionsDropdown($package) {
+        $row = $this->getModuleRow($package->module_row);
+        $api = $this->getApi($row->meta->apiKey);
+        $result = $api->getlongGetResults("regions");
+		$dp = array();
+		foreach ($result->regions as $key => $value)
+		{
+		$dp[$result->regions[$key]->slug] = $result->regions[$key]->slug;
+		}
+		return $dp;
+    }
+	
     public function getSshDropdown($module_row) {
         $api = $this->getApi($module_row->meta->apiKey);
         $result = $api->getlongGetResults("account/keys");
@@ -505,7 +530,16 @@ class Digitaloceanmodule extends Module {
         $domain = $fields->label(Language::_("Digitaloceanmodule.hostname", true), "hostname");
         $domain->attach($fields->fieldText("hostname", $this->Html->ifSet($vars->hostname, $this->Html->ifSet($vars->hostname)), array('id' => "hostname")));
         $fields->setField($domain);
-
+		
+		$region = $fields->label(Language::_("Digitaloceanmodule.region", true), "region");
+        $region->attach($fields->fieldSelect("region", $this->getAllRegionsDropdown($package)), array('id' => "region"));
+        $fields->setField($region);
+		
+		$image = $fields->label(Language::_("Digitaloceanmodule.image", true), "image");
+        $image->attach($fields->fieldSelect("image", $this->getallImagesDropdown($package)), array('id' => "image"));
+        $fields->setField($image);
+		
+		$client_sshkey = $fields->label(Language::_("Digitaloceanmodule.client_sshkey", true), "client_sshkey");
         $client_sshkey = $fields->fieldTextArea("client_sshkey", $this->Html->ifSet($vars->client_sshkey, $this->Html->ifSet($vars->client_sshkey)), array('id' => "client_sshkey"));
         $fields->setField($client_sshkey);
 
@@ -519,7 +553,15 @@ class Digitaloceanmodule extends Module {
         $domain = $fields->label(Language::_("Digitaloceanmodule.hostname", true), "hostname");
         $domain->attach($fields->fieldText("hostname", $this->Html->ifSet($vars->hostname, $this->Html->ifSet($vars->hostname)), array('id' => "hostname")));
         $fields->setField($domain);
-
+		
+		$region = $fields->label(Language::_("Digitaloceanmodule.region", true), "region");
+        $region->attach($fields->fieldSelect("region", $this->getAllRegionsDropdown($package)), array('id' => "region"));
+        $fields->setField($region);
+		
+		$image = $fields->label(Language::_("Digitaloceanmodule.image", true), "image");
+        $image->attach($fields->fieldSelect("image", $this->getallImagesDropdown($package)), array('id' => "image"));
+        $fields->setField($image);
+		
         $client_sshkey = $fields->label(Language::_("Digitaloceanmodule.client_sshkey", true), "client_sshkey");
         $client_sshkey->attach($fields->fieldTextArea("client_sshkey", $this->Html->ifSet($vars->client_sshkey), array('id' => "client_sshkey")));
         $fields->setField($client_sshkey);
@@ -586,14 +628,16 @@ class Digitaloceanmodule extends Module {
             $sshkey_result = $api->getPostResults("account/keys", $ssh_key);
             if (isset($sshkey_result->ssh_key->id) && isset($sshkey_result->ssh_key->name) && $sshkey_result->ssh_key->name === $ssh_key['name']) {
                 $this->log("Create Client SSH Key {$sshkey_result->ssh_key->name}", serialize("sshkey_create"), "input", true);
-                $vars['client_sshkey'] = $sshkey_result->ssh_key->id;
+                $vars['client_sshkey'] = $sshkey_result->ssh_key->fingerprint;
+				$this->log("Set client_sshkey variable", print_r($vars['client_sshkey'],true), "input", true);
                 $params = $this->getFieldsFromInput((array) $vars, $package);
                 $result = $api->getPostResults("droplets", $params);
+				$this->log("API CREATE RESULTS" . print_r($result,true), print_r($result,true),"input",true); 
                 if (isset($result->droplet->id) && isset($result->droplet->name) && $result->droplet->name === $vars['hostname']) {
                     $this->log("Create New Droplet {$result->droplet->id} - {$result->droplet->name}", serialize("droplet_create"), "input", true);
                     $client_did = $result->droplet->id;
                     $client_dname = $result->droplet->name;
-                    $client_sshkey = $sshkey_result->ssh_key->id;
+                    $client_sshkey = $sshkey_result->ssh_key->fingerprint;
                 } else {
                     $fa = array(
                         0 => array(
@@ -649,10 +693,10 @@ class Digitaloceanmodule extends Module {
                 'value' => isset($params['user_data']) ? $params['user_data'] : null,
                 'encrypted' => 0
             ),
-            array(
+			array(
                 'key' => "client_sshkey",
-                'value' => isset($client_sshkey) ? $client_sshkey : null,
-                'encrypted' => 1
+                'value' => isset($params['client_sshkey']) ? $params['client_sshkey'] : null,
+                'encrypted' => 0
             )
         );
     }
@@ -660,13 +704,13 @@ class Digitaloceanmodule extends Module {
     private function getFieldsFromInput(array $vars, $package) {
         $fields = array(
             'name' => isset($vars['hostname']) ? $vars['hostname'] : null,
-            'region' => isset($vars['configoptions']['region']) ? $vars['configoptions']['region'] : $vars['region'],
+            'region' => isset($vars['configoptions']['region']) ? $vars['configoptions']['region'] : "nyc1",
             'size' => $package->meta->size,
-            'image' => isset($vars['configoptions']['image']) ? $vars['configoptions']['image'] : $vars['image'],
-            'ssh_keys' => array($package->meta->global_sshkey, isset($vars['client_sshkey']) ? $vars['client_sshkey'] : null),
-            'backups' => isset($vars['configoptions']['backups']) ? $vars['configoptions']['backups'] : $vars['backups'],
-            'ipv6' => isset($vars['configoptions']['ipv6']) ? $vars['configoptions']['ipv6'] : $vars['ipv6'],
-            'private_networking' => isset($vars['configoptions']['private_networking']) ? $vars['configoptions']['private_networking'] : $vars['private_networking'],
+            'image' => isset($vars['image']) ? $vars['image'] : $vars['image'],
+            'ssh_keys' => array(isset($vars['global_sshkey']) ? $vars['global_sshkey'] : $vars['client_sshkey'],isset($vars['client_sshkey']) ? $vars['client_sshkey'] : $vars['client_sshkey']),
+            'backups' => isset($vars['configoptions']['backups']) ? $vars['configoptions']['backups'] : null,
+            'ipv6' => isset($vars['configoptions']['ipv6']) ? $vars['configoptions']['ipv6'] : null,
+            'private_networking' => isset($vars['configoptions']['private_networking']) ? $vars['configoptions']['private_networking'] : null,
             'user_data' => isset($vars['configoptions']['user_data']) ? $vars['configoptions']['user_data'] : null,
         );
         return $fields;
