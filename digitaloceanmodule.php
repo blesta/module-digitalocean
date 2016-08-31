@@ -676,7 +676,7 @@ class Digitaloceanmodule extends Module {
                 'value' => isset($params['user_data']) ? $params['user_data'] : null,
                 'encrypted' => 0
             ),
-			array(
+	    array(
                 'key' => "client_sshkey",
                 'value' => isset($params['client_sshkey']) ? $params['client_sshkey'] : null,
                 'encrypted' => 0
