@@ -6,7 +6,7 @@ class Digitaloceanmodule extends Module {
         Loader::loadComponents($this, array("Input"));
         Language::loadLang("lang", null, dirname(__FILE__) . DS . "language" . DS);
         Loader::loadHelpers($this, array("Html"));
-        $this->loadConfig(dirname(__FILE__) . DS . "composer.json");
+        $this->loadConfig(dirname(__FILE__) . DS . "config.json");
     }
 
     public function getAdminTabs($package) {
