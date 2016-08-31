@@ -3,7 +3,14 @@
 class Digitaloceanmodule extends Module {
 
     private static $version = "2.2";
-    private static $authors = array(array('name' => "ModulesBakery.com.", 'url' => "http://www.modulesbakery.com"),array('name' => "CubeData", 'url' => "https://cubedata.net"));
+    private static $authors = array(
+    	array(
+    	'name' => "ModulesBakery.com.",
+    	'url' => "http://www.modulesbakery.com"),
+    	array(
+    	'name' => "CubeData", 
+    	'url' => "https://cubedata.net")
+    	);
 
     public function __construct() {
         Loader::loadComponents($this, array("Input"));
@@ -331,13 +338,12 @@ class Digitaloceanmodule extends Module {
         return $fields;
     }
 
-	public function getallImagesDropdown($package) {
+	public function getAllImagesDropdown($package) {
         $row = $this->getModuleRow($package->module_row);
         $api = $this->getApi($row->meta->apiKey);
         $result = $api->getlongGetResults("images");
         $dp = array();
-		foreach ($result->images as $key => $value)
-		{
+		foreach ($result->images as $key => $value) {
 		$dp[$result->images[$key]->slug] = $result->images[$key]->slug;
 		}
 		return $dp;
@@ -347,12 +353,11 @@ class Digitaloceanmodule extends Module {
         $row = $this->getModuleRow($package->module_row);
         $api = $this->getApi($row->meta->apiKey);
         $result = $api->getlongGetResults("regions");
-		$dp = array();
-		foreach ($result->regions as $key => $value)
-		{
-		$dp[$result->regions[$key]->slug] = $result->regions[$key]->slug;
+	$dp = array();
+	foreach ($result->regions as $key => $value) {
+	     $dp[$result->regions[$key]->slug] = $result->regions[$key]->slug;
 		}
-		return $dp;
+	 return $dp;
     }
 	
     public function getSshDropdown($module_row) {
