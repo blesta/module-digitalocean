@@ -343,10 +343,10 @@ class Digitaloceanmodule extends Module {
         $api = $this->getApi($row->meta->apiKey);
         $result = $api->getlongGetResults("images");
         $dp = array();
-		foreach ($result->images as $key => $value) {
-		$dp[$result->images[$key]->slug] = $result->images[$key]->slug;
+	foreach ($result->images as $key => $value) {
+	     $dp[$result->images[$key]->slug] = $result->images[$key]->slug;
 		}
-		return $dp;
+	 return $dp;
     }
 	
 	public function getAllRegionsDropdown($package) {
