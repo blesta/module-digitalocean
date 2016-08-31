@@ -2,32 +2,11 @@
 
 class Digitaloceanmodule extends Module {
 
-    private static $version = "2.2";
-    private static $authors = array(
-    	array(
-    	'name' => "ModulesBakery.com.",
-    	'url' => "http://www.modulesbakery.com"),
-    	array(
-    	'name' => "CubeData", 
-    	'url' => "https://cubedata.net")
-    	);
-
     public function __construct() {
         Loader::loadComponents($this, array("Input"));
         Language::loadLang("lang", null, dirname(__FILE__) . DS . "language" . DS);
         Loader::loadHelpers($this, array("Html"));
-    }
-
-    public function getName() {
-        return Language::_("Digitaloceanmodule.name", true);
-    }
-
-    public function getVersion() {
-        return self::$version;
-    }
-
-    public function getAuthors() {
-        return self::$authors;
+        $this->loadConfig(dirname(__FILE__) . DS . "composer.json");
     }
 
     public function getAdminTabs($package) {
@@ -339,25 +318,25 @@ class Digitaloceanmodule extends Module {
     }
 
 	public function getAllImagesDropdown($package) {
-        $row = $this->getModuleRow($package->module_row);
-        $api = $this->getApi($row->meta->apiKey);
-        $result = $api->getlongGetResults("images");
-        $dp = array();
-	foreach ($result->images as $key => $value) {
+         $row = $this->getModuleRow($package->module_row);
+         $api = $this->getApi($row->meta->apiKey);
+         $result = $api->getlongGetResults("images");
+         $dp = array();
+	 foreach ($result->images as $key => $value) {
 	     $dp[$result->images[$key]->slug] = $result->images[$key]->slug;
 		}
-	 return $dp;
+	  return $dp;
     }
 	
 	public function getAllRegionsDropdown($package) {
-        $row = $this->getModuleRow($package->module_row);
-        $api = $this->getApi($row->meta->apiKey);
-        $result = $api->getlongGetResults("regions");
-	$dp = array();
-	foreach ($result->regions as $key => $value) {
+         $row = $this->getModuleRow($package->module_row);
+         $api = $this->getApi($row->meta->apiKey);
+         $result = $api->getlongGetResults("regions");
+	 $dp = array();
+	 foreach ($result->regions as $key => $value) {
 	     $dp[$result->regions[$key]->slug] = $result->regions[$key]->slug;
 		}
-	 return $dp;
+	  return $dp;
     }
 	
     public function getSshDropdown($module_row) {
