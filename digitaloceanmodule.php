@@ -208,7 +208,7 @@ class Digitaloceanmodule extends Module {
             }
         }
         return $array;
-    }	
+    }
 
     public function getRestoreImagesDropdown($module_row, $droplet_id) {
         $api = $this->getApi($module_row->meta->apiKey);
@@ -327,7 +327,7 @@ class Digitaloceanmodule extends Module {
 		}
 	  return $dp;
     }
-	
+
 	public function getAllRegionsDropdown($package) {
          $row = $this->getModuleRow($package->module_row);
          $api = $this->getApi($row->meta->apiKey);
@@ -338,7 +338,7 @@ class Digitaloceanmodule extends Module {
 		}
 	  return $dp;
     }
-	
+
     public function getSshDropdown($module_row) {
         $api = $this->getApi($module_row->meta->apiKey);
         $result = $api->getlongGetResults("account/keys");
@@ -513,17 +513,17 @@ class Digitaloceanmodule extends Module {
         $domain = $fields->label(Language::_("Digitaloceanmodule.hostname", true), "hostname");
         $domain->attach($fields->fieldText("hostname", $this->Html->ifSet($vars->hostname, $this->Html->ifSet($vars->hostname)), array('id' => "hostname")));
         $fields->setField($domain);
-		
+
 		$region = $fields->label(Language::_("Digitaloceanmodule.region", true), "region");
         $region->attach($fields->fieldSelect("region", $this->getAllRegionsDropdown($package)), array('id' => "region"));
         $fields->setField($region);
-		
+
 		$image = $fields->label(Language::_("Digitaloceanmodule.image", true), "image");
         $image->attach($fields->fieldSelect("image", $this->getallImagesDropdown($package)), array('id' => "image"));
         $fields->setField($image);
-		
+
 		$client_sshkey = $fields->label(Language::_("Digitaloceanmodule.client_sshkey", true), "client_sshkey");
-        $client_sshkey = $fields->fieldTextArea("client_sshkey", $this->Html->ifSet($vars->client_sshkey, $this->Html->ifSet($vars->client_sshkey)), array('id' => "client_sshkey"));
+        $client_sshkey->attach($fields->fieldTextArea("client_sshkey", $this->Html->ifSet($vars->client_sshkey, $this->Html->ifSet($vars->client_sshkey)), array('id' => "client_sshkey")));
         $fields->setField($client_sshkey);
 
         return $fields;
@@ -536,15 +536,15 @@ class Digitaloceanmodule extends Module {
         $domain = $fields->label(Language::_("Digitaloceanmodule.hostname", true), "hostname");
         $domain->attach($fields->fieldText("hostname", $this->Html->ifSet($vars->hostname, $this->Html->ifSet($vars->hostname)), array('id' => "hostname")));
         $fields->setField($domain);
-		
+
 		$region = $fields->label(Language::_("Digitaloceanmodule.region", true), "region");
         $region->attach($fields->fieldSelect("region", $this->getAllRegionsDropdown($package)), array('id' => "region"));
         $fields->setField($region);
-		
+
 		$image = $fields->label(Language::_("Digitaloceanmodule.image", true), "image");
         $image->attach($fields->fieldSelect("image", $this->getallImagesDropdown($package)), array('id' => "image"));
         $fields->setField($image);
-		
+
         $client_sshkey = $fields->label(Language::_("Digitaloceanmodule.client_sshkey", true), "client_sshkey");
         $client_sshkey->attach($fields->fieldTextArea("client_sshkey", $this->Html->ifSet($vars->client_sshkey), array('id' => "client_sshkey")));
         $fields->setField($client_sshkey);
@@ -615,7 +615,7 @@ class Digitaloceanmodule extends Module {
 				$this->log("Set client_sshkey variable", print_r($vars['client_sshkey'],true), "input", true);
                 $params = $this->getFieldsFromInput((array) $vars, $package);
                 $result = $api->getPostResults("droplets", $params);
-				$this->log("API CREATE RESULTS" . print_r($result,true), print_r($result,true),"input",true); 
+				$this->log("API CREATE RESULTS" . print_r($result,true), print_r($result,true),"input",true);
                 if (isset($result->droplet->id) && isset($result->droplet->name) && $result->droplet->name === $vars['hostname']) {
                     $this->log("Create New Droplet {$result->droplet->id} - {$result->droplet->name}", serialize("droplet_create"), "input", true);
                     $client_did = $result->droplet->id;

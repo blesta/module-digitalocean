@@ -51,8 +51,7 @@ class DigitaloceanApi {
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             'Content-Type: application/json',
             'Accept: application/json',
-	    'Authorization: Bearer' . 
-	    $this->apiKey
+            'Authorization: Bearer ' . $this->apiKey
         ));
         curl_setopt($ch, CURLOPT_URL, $action);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
@@ -73,8 +72,7 @@ class DigitaloceanApi {
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             'Content-Type: application/json',
             'Accept: application/json',
-	    'Authorization: Bearer' . 
-	    $this->apiKey
+            'Authorization: Bearer ' . $this->apiKey
         ));
         curl_setopt($ch, CURLOPT_POST, count($result_p));
         curl_setopt($ch, CURLOPT_POSTFIELDS, $result_p);
@@ -90,8 +88,7 @@ class DigitaloceanApi {
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             'Content-Type: application/json',
             'Accept: application/json',
-	    'Authorization: Bearer' . 
-	    $this->apiKey
+            'Authorization: Bearer ' . $this->apiKey
         ));
         curl_setopt($ch, CURLOPT_URL, $action);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
@@ -108,8 +105,7 @@ class DigitaloceanApi {
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             'Content-Type: application/json',
             'Accept: application/json',
-	    'Authorization: Bearer' . 
-	    $this->apiKey
+            'Authorization: Bearer ' . $this->apiKey
         ));
         curl_setopt($ch, CURLOPT_URL, $action);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
