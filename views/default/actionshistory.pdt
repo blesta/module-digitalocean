@@ -8,24 +8,25 @@
             </tr>
         </thead>
         <tbody>
-     <?php 
-     if(count($actions) > 0 ) {
-     foreach ($actions as $key => $value) {
-    
- ?>
+        <?php
+        if(count($actions) > 0 ) {
+            foreach ($actions as $key => $value) {
+            ?>
             <tr>
                 <td><?php $this->Html->_($actions[$key]->type);?></td>
                 <td><?php echo date("d M, Y - h:i:sa", strtotime($actions[$key]->started_at));?></td>
                 <td><?php $this->Html->_($actions[$key]->status);?></td>
             </tr>
-				<?php
-     } } else {
-?>
+            <?php
+            }
+        } else {
+        ?>
             <tr>
                 <td colspan="4" align="center"><?php $this->_("Digitaloceanmodule.no_results");?></td>
             </tr>
-            <?php
-     }			?>
+        <?php
+        }
+        ?>
         </tbody>
     </table>
 </div>
