@@ -210,7 +210,7 @@ class Digitaloceanmodule extends Module
         $this->view->set("kernels", $this->getkernelDropdown($module_row, $service_fields->droplet_id));
         $this->view->set("restore_snapshots", $this->getsnapshotsDropdown($module_row, $service_fields->droplet_id));
         $this->view->set("restore_images", $this->getRestoreImagesDropdown($module_row, $service_fields->droplet_id));
-        $this->view->set("kernel_id", $droplet_info->kernel->id);
+        $this->view->set("kernel_id", (($droplet_info->kernel) ? $droplet_info->kernel->id : null));
         $this->view->set("module_row", $module_row);
         $this->view->set("service_fields", $service_fields);
 
