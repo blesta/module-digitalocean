@@ -1,19 +1,20 @@
-	
+
 <h4 align="center"><?php $this->_("Digitaloceanmodule.heading_server_status");?>
-	<?php
-	$status_class = "default";
-       if(isset($droplet_info->status) && $droplet_info->status === "active"){
-			$status_class = "success";
-       }
-	?>
+    <?php
+    $status_class = "default";
+    if (isset($droplet_info->status) && $droplet_info->status === "active") {
+         $status_class = "success";
+    }
+    ?>
     <span class="label label-<?php $this->Html->_($status_class);?>">
         <i class="fa fa-lightbulb-o"></i> <?php echo $ip_address;?>
-    </span></h4>
+    </span>
+</h4>
 <h4><?php $this->_("Digitaloceanmodule.heading_actions");?></h4>
 <div class="row options">
-    		<?php
-		$this->Form->create();
-		?>
+    <?php
+    $this->Form->create();
+    ?>
 
     <div class="col-md-4">
         <button type="submit" name="power_cycle" class="btn btn-default btn-block btn-success">
@@ -24,7 +25,7 @@
         </a>
     </div>
     <div class="col-md-4">
-    <?php if(isset($droplet_info->status) && $droplet_info->status === "active"){ ?>
+    <?php if (isset($droplet_info->status) && $droplet_info->status === "active") { ?>
         <button type="submit" name="shutdown" class="btn btn-default btn-block btn-danger">
             <i class="fa fa-power-off"></i> <?php $this->_("Digitaloceanmodule.shutdown");?>
         </button>
@@ -45,9 +46,9 @@
             <i class="fa fa-cube"></i> <?php $this->_("Digitaloceanmodule.kernelchange");?>
         </a>
     </div>
-    		<?php
-		$this->Form->end();
-		?>
+    <?php
+    $this->Form->end();
+    ?>
 
 </div>
 
@@ -56,15 +57,15 @@
     <hr />
     <h4><?php $this->_("Digitaloceanmodule.restoresnapshots");?></h4>
 
-		<?php
-		$this->Form->create();
-		?>
+        <?php
+        $this->Form->create();
+        ?>
     <div class="col-md-12">
         <div class="form-group">
-				<?php
-				$this->Form->label($this->_("Digitaloceanmodule.choosesnapshot", true), "restore_snapshots");
-				$this->Form->fieldSelect("restore_snapshots", $this->Html->ifSet($restore_snapshots), array('id' => "restore_snapshots", 'class'=>"form-control"));
-				?>
+            <?php
+            $this->Form->label($this->_("Digitaloceanmodule.choosesnapshot", true), "restore_snapshots");
+            $this->Form->fieldSelect("restore_snapshots", $this->Html->ifSet($restore_snapshots), array('id' => "restore_snapshots", 'class'=>"form-control"));
+            ?>
         </div>
     </div>
     <button class="btn btn-default pull-right" name="restorefromsnapshots" type="submit">
@@ -74,31 +75,31 @@
         <i class="fa fa-plus-circle"></i> <?php $this->_("Digitaloceanmodule.snapshotnew");?>
     </button>
 
-		<?php
-		$this->Form->end();
-		?>
+        <?php
+        $this->Form->end();
+        ?>
 </div>
 <div id="restore" style="display:none;">
     <hr />
     <h4><?php $this->_("Digitaloceanmodule.restore");?></h4>
 
-		<?php
-		$this->Form->create();
-		?>
+        <?php
+        $this->Form->create();
+        ?>
     <div class="col-md-12">
         <div class="form-group">
-				<?php
-				$this->Form->label($this->_("Digitaloceanmodule.restore_image", true), "restore_image");
-				$this->Form->fieldSelect("restore_image", $this->Html->ifSet($restore_images), array('id' => "restore_image", 'class'=>"form-control"));
-				?>
+            <?php
+            $this->Form->label($this->_("Digitaloceanmodule.restore_image", true), "restore_image");
+            $this->Form->fieldSelect("restore_image", $this->Html->ifSet($restore_images), array('id' => "restore_image", 'class'=>"form-control"));
+            ?>
         </div>
     </div>
     <button class="btn btn-default pull-right" name="restore" type="submit">
         <i class="fa fa-edit"></i> Submit
     </button>
-		<?php
-		$this->Form->end();
-		?>
+        <?php
+        $this->Form->end();
+        ?>
 </div>
 
 <div class="clearfix"></div>
@@ -106,23 +107,23 @@
     <hr />
     <h4><?php $this->_("Digitaloceanmodule.rebuild");?></h4>
 
-		<?php
-		$this->Form->create();
-		?>
+        <?php
+        $this->Form->create();
+        ?>
     <div class="col-md-12">
         <div class="form-group">
-				<?php
-				$this->Form->label($this->_("Digitaloceanmodule.rebuild_image", true), "rebuild_image");
-				$this->Form->fieldSelect("rebuild_image", $this->Html->ifSet($rebuild_images), array('id' => "rebuild_image", 'class'=>"form-control"));
-				?>
+            <?php
+            $this->Form->label($this->_("Digitaloceanmodule.rebuild_image", true), "rebuild_image");
+            $this->Form->fieldSelect("rebuild_image", $this->Html->ifSet($rebuild_images), array('id' => "rebuild_image", 'class'=>"form-control"));
+            ?>
         </div>
     </div>
     <button class="btn btn-default pull-right" name="rebuild" type="submit">
         <i class="fa fa-edit"></i> Submit
     </button>
-		<?php
-		$this->Form->end();
-		?>
+        <?php
+        $this->Form->end();
+        ?>
 </div>
 
 <div class="clearfix"></div>
@@ -130,28 +131,27 @@
     <hr />
     <h4><?php $this->_("Digitaloceanmodule.kernelchange");?></h4>
 
-		<?php
-		$this->Form->create();
-		?>
+        <?php
+        $this->Form->create();
+        ?>
     <div class="col-md-12">
         <div class="form-group">
-				<?php
-				$this->Form->label($this->_("Digitaloceanmodule.kernelchange", true), "kernelchange");
-				$this->Form->fieldSelect("new_kernel", $this->Html->ifSet($kernels), array('id' => "kernelchange", 'class'=>"form-control"));
-				?>
+            <?php
+            $this->Form->label($this->_("Digitaloceanmodule.kernelchange", true), "kernelchange");
+            $this->Form->fieldSelect("new_kernel", $this->Html->ifSet($kernels), array('id' => "kernelchange", 'class'=>"form-control"));
+            ?>
         </div>
     </div>
     <button class="btn btn-default pull-right" name="kernelchange" type="submit">
         <i class="fa fa-edit"></i> Submit
     </button>
-		<?php
-		$this->Form->end();
-		?>
+    <?php
+    $this->Form->end();
+    ?>
 </div>
 
 <script type="text/javascript">
     $(document).ready(function () {
-
         $('.options a.restore, .options a.rename, .options a.rebuild, .options a.restoresnapshots').click(function (e) {
             var item_class = "restore";
             if ($(this).hasClass('rebuild'))

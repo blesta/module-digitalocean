@@ -1,39 +1,39 @@
         <?php
-		$this->Widget->clear();
-		$this->Widget->setLinkButtons(array());
-		$this->Widget->create($this->_("Digitaloceanmodule.edit_row.box_title", true));
-		?>
-<div class="inner">
-			<?php
-			$this->Form->create();
-			?>
-    <div class="title_row first">
-        <h3><?php $this->_("Digitaloceanmodule.edit_row.basic_title");?></h3>
-    </div>
-    <div class="pad">
-        <ul>
-            <li>
+        $this->Widget->clear();
+        $this->Widget->setLinkButtons(array());
+        $this->Widget->create($this->_("Digitaloceanmodule.edit_row.box_title", true));
+        ?>
+        <div class="inner">
+            <?php
+            $this->Form->create();
+            ?>
+            <div class="title_row first">
+                <h3><?php $this->_("Digitaloceanmodule.edit_row.basic_title");?></h3>
+            </div>
+            <div class="pad">
+                <ul>
+                    <li>
                         <?php
-						$this->Form->label($this->_("Digitaloceanmodule.row_meta.name", true), "name");
-						$this->Form->fieldText("name", $this->Html->ifSet($vars->name), array('id' => "name"));
-						?>
-            </li>
-            <li>
+                        $this->Form->label($this->_("Digitaloceanmodule.row_meta.name", true), "name");
+                        $this->Form->fieldText("name", $this->Html->ifSet($vars->name), array('id' => "name"));
+                        ?>
+                    </li>
+                    <li>
                         <?php
-						$this->Form->label($this->_("Digitaloceanmodule.row_meta.key", true), "apiKey");
-						$this->Form->fieldText("apiKey", $this->Html->ifSet($vars->apiKey), array('id' => "apiKey"));
-						?>
-            </li>
-        </ul>
-    </div>
+                        $this->Form->label($this->_("Digitaloceanmodule.row_meta.key", true), "apiKey");
+                        $this->Form->fieldText("apiKey", $this->Html->ifSet($vars->apiKey), array('id' => "apiKey"));
+                        ?>
+                    </li>
+                </ul>
+            </div>
 
-    <div class="button_row">
-        <a class="btn_right submit" href="#"><?php $this->_("Digitaloceanmodule.edit_row.add_btn");?></a>
-    </div>
-			<?php
-			$this->Form->end();
-			?>
-</div>
-		<?php
-		$this->Widget->end();
-		?>
+            <div class="button_row">
+                <a class="btn_right submit" href="#"><?php $this->_("Digitaloceanmodule.edit_row.add_btn");?></a>
+            </div>
+            <?php
+            $this->Form->end();
+            ?>
+        </div>
+        <?php
+        $this->Widget->end();
+        ?>
