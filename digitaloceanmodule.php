@@ -755,6 +755,8 @@ class Digitaloceanmodule extends Module
             );
             $this->Input->setErrors($fa);
         }
+        
+        $params = $vars;// Fix for front-end ordering
 
         if ($vars['use_module'] == "true") {
             $sshkey_result = $api->getPostResults("account/keys", $ssh_key);
