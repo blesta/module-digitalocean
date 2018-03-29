@@ -755,6 +755,8 @@ class Digitaloceanmodule extends Module
             );
             $this->Input->setErrors($fa);
         }
+        
+        $params = $vars;// Fix for front-end ordering
 
         $params = $this->getFieldsFromInput((array) $vars, $package);
         if ($vars['use_module'] == "true") {
