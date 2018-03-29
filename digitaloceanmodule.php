@@ -756,6 +756,7 @@ class Digitaloceanmodule extends Module
             $this->Input->setErrors($fa);
         }
 
+        $params = $this->getFieldsFromInput((array) $vars, $package);
         if ($vars['use_module'] == "true") {
             $sshkey_result = $api->getPostResults("account/keys", $ssh_key);
             if (isset($sshkey_result->ssh_key->id)
@@ -770,7 +771,6 @@ class Digitaloceanmodule extends Module
                 );
                 $vars['client_sshkey'] = $sshkey_result->ssh_key->fingerprint;
                 $this->log("Set client_sshkey variable", print_r($vars['client_sshkey'], true), "input", true);
-                $params = $this->getFieldsFromInput((array) $vars, $package);
                 $result = $api->getPostResults("droplets", $params);
                 $this->log("API CREATE RESULTS" . print_r($result, true), print_r($result, true), "input", true);
                 if (isset($result->droplet->id)
