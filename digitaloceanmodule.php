@@ -430,7 +430,7 @@ class Digitaloceanmodule extends Module
         $dp = array();
         foreach ($result->sizes as $key => $value) {
             if ($result->sizes[$key]->available == true) {
-				$tmp = $result->sizes[$key];
+                $tmp = $result->sizes[$key];
                 $dp[$tmp->slug] = $tmp->slug . '  ( $' . $tmp->price_monthly . ', RAM: ' . $tmp->memory . ')';
             }
         }
